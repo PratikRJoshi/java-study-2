@@ -41,22 +41,36 @@ public class BaseballElimination {
 	}
 
 	// number of teams
-	public int numberOfTeams();
+	public int numberOfTeams() { return teams.size(); }
 
-	// all teams
-	public Iterable<String> teams();
+	/**
+	 * Return iterable of team names.
+	 */
+	public Iterable<String> teams() { return teams.keySet(); }
 
-	// number of wins for given team
-	public int wins(String team);
+	/**
+	 * Return the number of wins <code>team</code> has already had.
+	 */
+	public int wins(String team) { return w[teams.get(team)]; }
 
-	// number of losses for given team
-	public int losses(String team);
+	/**
+	 * Return the number of losses <code>team</code> has already had.
+	 */
+	public int losses(String team) { return l[teams.get(team)]; }
 
-	// number of remaining games for given team
-	public int remaining(String team);
+	/**
+	 * Return the number of remaining games <code>team</code> has already had
+	 * left.
+	 */
+	public int remaining(String team) { return r[teams.get(team)]; }
 
-	// number of remaining games between team1 and team2
-	public int against(String team1, String team2);
+	/**
+	 * Return the number of games that were already remaining left to play
+	 * between <code>team1</code> and <code>team2</code>.
+	 */
+	public int against(String team1, String team2) {
+		return g[teams.get(team1)][teams.get(team2)];
+	}
 
 	// is given team eliminated?
 	public boolean isEliminated(String team);
