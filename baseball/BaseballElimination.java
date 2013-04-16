@@ -167,6 +167,20 @@ public class BaseballElimination {
 		return null;
 	}
 
+	// Do a full max-flow/min-cut search to determine if the team is eliminated
+	// The running time is O(n * (n + 3 * (n - 1) * (n - 2) / 2)) in the worst
+	// case (i.e., O(n^3)).
+	private Result fullSearch(int id) {
+		FordFulkerson maxFlow = buildGraphFor(id);
+		Result result = new Result(team);
+		if (isEliminated(id, maxFlow.value())) {
+			for (int i = 0; i < numberOfTeams(); i++)
+				if (maxFlow.inCut(i)) // XXX Maybe should be negated? Needs test
+					result.addBetterTeam(i);
+		}
+		return result;
+	}
+
 	/**
 	 * Read in a sports division from an input file and print out whether each
 	 * team is eliminated and a certificate of elimination for each such team.
