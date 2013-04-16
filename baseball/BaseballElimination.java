@@ -173,11 +173,11 @@ public class BaseballElimination {
 	private Result fullSearch(int id) {
 		FordFulkerson maxFlow = buildGraphFor(id);
 		Result result = new Result(team);
-		if (isEliminated(id, maxFlow.value())) {
+		if (isEliminated(id, maxFlow.value()))
+			// The better teams are those on the source side of the min cut
 			for (int i = 0; i < numberOfTeams(); i++)
-				if (maxFlow.inCut(i)) // XXX Maybe should be negated? Needs test
+				if (maxFlow.inCut(i))
 					result.addBetterTeam(i);
-		}
 		return result;
 	}
 
