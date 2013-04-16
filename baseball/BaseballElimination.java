@@ -12,6 +12,7 @@ public class BaseballElimination {
 	private final int[] w, l, r; // Wins, losses, remaining games
 	private final int[][] g; // Games left between teams i and j
 	private Result last; // Cached last result
+	private final int mostWins, leader; // For making trivialSearch() O(1)
 
 	/**
 	 * Create a baseball division from given filename in format specified below.
@@ -34,6 +35,7 @@ public class BaseballElimination {
 		g = new int[n][n]; // XXX may be able to cut this in half (upper triangle)
 		ids = new String[n];
 		String name;
+		int mostWins = 0, leader = 0;
 		for (int i = 0; i < n; i++) {
 			name = file.readString();
 			teams.put(name, i);
@@ -43,7 +45,13 @@ public class BaseballElimination {
 			r[i] = file.readInt();
 			for (int j = 0; j < n; j++)
 				g[i][j] = file.readInt();
+			if (w[i] > mostWins) {
+				mostWins = w[i];
+				leader = i;
+			}
 		}
+		this.mostWins = mostWins;
+		this.leader = leader;
 	}
 
 	/**
@@ -149,16 +157,12 @@ public class BaseballElimination {
 
 	// Check if a team is trivially eliminated, i.e., some other team has
 	// already won more than this team could in the rest of the season. The
-	// running time is linear in the worst case.
+	// running time is constant in the worst case.
 	private Result trivialSearch(int id) {
-		int possibleWins = w[id] + r[id];
-		// XXX This can be sped up by caching just max(w).
-		for (int i = 0; i < numberOfTeams(); i++) {
-			if (id != i && possibleWins < w[i]) {
-				Result result = new Result(id);
-				result.addBetterTeam(i);
-				return Result;
-			}
+		if (id != leader && w[id] + r[id] < mostWins) {
+			Result result = new Result(id);
+			result.addBetterTeam(leader);
+			return Result;
 		}
 		return null;
 	}
