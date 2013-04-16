@@ -39,7 +39,7 @@ public class BaseballElimination {
 		g = new int[n][n]; // XXX may be able to cut this in half (upper triangle)
 		ids = new String[n];
 		String name;
-		int mostWins = 0, leader = 0;
+		int max = 0, argmax = 0;
 		for (int i = 0; i < n; i++) {
 			name = file.readString();
 			teams.put(name, i);
@@ -49,13 +49,13 @@ public class BaseballElimination {
 			r[i] = file.readInt();
 			for (int j = 0; j < n; j++)
 				g[i][j] = file.readInt();
-			if (w[i] > mostWins) {
-				mostWins = w[i];
-				leader = i;
+			if (w[i] > max) {
+				max = w[i];
+				argmax = i;
 			}
 		}
-		this.mostWins = mostWins;
-		this.leader = leader;
+		this.mostWins = max;
+		this.leader = argmax;
 	}
 
 	/**
