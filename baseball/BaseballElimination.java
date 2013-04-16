@@ -182,6 +182,59 @@ public class BaseballElimination {
 	}
 
 	/**
+	 * Build a <code>FlowNetwork</code> graph representing the ways the division
+	 * could beat team <code>id</code> and return the <code>FordFulkerson</code>
+	 * object initialized with it.
+	 * <p>
+	 * In the graph, the source connects to games among <code>id<code>'s
+	 * opponents, games connect to the teams playing them, and the teams connect
+	 * to a sink.
+	 * <p>
+	 * Souce->game edges have capacity <code>g[i][j] <code> for teams
+	 * <code>i</code>, <code>j</code>. Game->team edges are unrestricted.
+	 * Team->sink edges have capacity equal to the difference between the most
+	 * games team <code>id</code> <em>could</em> win and the number of games
+	 * team <code>i</code> <em>has</em> won.
+	 * <p>
+	 * We return a <code>FordFulkerson<code> object rather than a
+	 * <code>FlowNetwork</code> object to hide implementation: how we number the
+	 * source and sink verticies.
+	 * <p>
+	 * The only guarantee about node numbering is that the nodes 0 to
+	 * <code>numberOfTeams() - 1</code> correspond to the teams in
+	 * <code>teams</code> and <code>ids</code>.
+	 *
+	 * @param id The id of the team we're trying eliminate
+	 * @return A FordFulkerson object to query for max flow
+	 */
+	private FordFulkerson buildGraphFor(int id) {
+		// 0 to n - 1 are team nodes, n and n + 1 are source and sink, and n + 2
+		// to v (at the end of the loop) will be id's-opponents' team match ups.
+		int n = numberOfTeams(), source = n, sink = n + 1, v = n + 2,
+			maxcap = w[id] + r[id];
+		double INF = Double.POSITIVE_INFINITY;
+		Bag<FlowEdge> edges = new Bag<FlowEdge>();
+		// Below, v is a game node, i and j are team nodes
+		for (int i = 0; i < n; i++) {
+			if (i == id)
+				continue;
+			for (int j = i + 1; j < n; j++) {
+				if (j == id || g[i][j] == 0)
+					continue;
+				edges.add(new FlowEdge(source, v, g[i][j]));
+				edges.add(new FlowEdge(v, i, INF));
+				edges.add(new FlowEdge(v, j, INF));
+				v++;
+			}
+			edges.add(new FlowEdge(i, sink, maxcap - w[i]));
+		}
+		FlowNetwork g = new FlowNetwork(v);
+		for (FlowEdge e : edges)
+			g.addEdge(e);
+		return new FordFulkerson(g, source, sink);
+	}
+
+	/**
 	 * Read in a sports division from an input file and print out whether each
 	 * team is eliminated and a certificate of elimination for each such team.
 	 *
