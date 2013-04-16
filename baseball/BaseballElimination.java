@@ -151,7 +151,7 @@ public class BaseballElimination {
 	// If no or wrong solution cached, first try a trivial solution, then do a
 	// full search, and cache the result.
 	private void solve(String team) {
-		if (last != null && last.team == team)
+		if (last != null && last.team.compareTo(team) == 0)
 			return;
 		isTeam(team);
 		int id = teams.get(team);
