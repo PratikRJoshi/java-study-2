@@ -3,9 +3,13 @@
  * wining the division by the end of the regular season.
  * <p>
  * Usage: java BaseballElimination inputfile.txt
+ * Dependencies: Bag.java, FlowEdge.java, FlowNetwork.java, FordFulkerson.java
  *
  * @author William Schwartz
  */
+
+import java.util.HashMap;
+
 public class BaseballElimination {
 	private final HashMap<String, Integer> teams; // Map team name to index
 	private final String[] ids; // Map index to team name
