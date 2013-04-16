@@ -51,24 +51,34 @@ public class BaseballElimination {
 	/**
 	 * Return the number of wins <code>team</code> has already had.
 	 */
-	public int wins(String team) { return w[teams.get(team)]; }
+	public int wins(String team) {
+		isTeam(team);
+		return w[teams.get(team)];
+	}
 
 	/**
 	 * Return the number of losses <code>team</code> has already had.
 	 */
-	public int losses(String team) { return l[teams.get(team)]; }
+	public int losses(String team) {
+		isTeam(team);
+		return l[teams.get(team)];
+	}
 
 	/**
 	 * Return the number of remaining games <code>team</code> has already had
 	 * left.
 	 */
-	public int remaining(String team) { return r[teams.get(team)]; }
+	public int remaining(String team) {
+		isTeam(team);
+		return r[teams.get(team)];
+	}
 
 	/**
 	 * Return the number of games that were already remaining left to play
 	 * between <code>team1</code> and <code>team2</code>.
 	 */
 	public int against(String team1, String team2) {
+		isTeam(team);
 		return g[teams.get(team1)][teams.get(team2)];
 	}
 
@@ -77,6 +87,12 @@ public class BaseballElimination {
 
 	// subset R of teams that eliminates given team; null if not eliminated
 	public Iterable<String> certificateOfElimination(String team);
+
+	// Throw IllegalArgumentException if team name not recognized.
+	private void isTeam(String team) {
+		if (!teams.containsKey(team))
+			throw new IllegalArgumentException("Unrecognized team: " + team);
+	}
 
 	/**
 	 * Read in a sports division from an input file and print out whether each
