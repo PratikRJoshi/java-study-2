@@ -212,7 +212,6 @@ public class BaseballElimination {
 		// to v (at the end of the loop) will be id's-opponents' team match ups.
 		int n = numberOfTeams(), source = n, sink = n + 1, v = n + 2,
 			maxcap = w[id] + r[id];
-		double INF = Double.POSITIVE_INFINITY;
 		Bag<FlowEdge> edges = new Bag<FlowEdge>();
 		// Below, v is a game node, i and j are team nodes
 		for (int i = 0; i < n; i++) {
@@ -222,8 +221,8 @@ public class BaseballElimination {
 				if (j == id || g[i][j] == 0)
 					continue;
 				edges.add(new FlowEdge(source, v, g[i][j]));
-				edges.add(new FlowEdge(v, i, INF));
-				edges.add(new FlowEdge(v, j, INF));
+				edges.add(new FlowEdge(v, i, Double.POSITIVE_INFINITY));
+				edges.add(new FlowEdge(v, j, Double.POSITIVE_INFINITY));
 				v++;
 			}
 			edges.add(new FlowEdge(i, sink, maxcap - w[i]));
