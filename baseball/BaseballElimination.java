@@ -147,6 +147,22 @@ public class BaseballElimination {
 			last = fullSearch(id);
 	}
 
+	// Check if a team is trivially eliminated, i.e., some other team has
+	// already won more than this team could in the rest of the season. The
+	// running time is linear in the worst case.
+	private Result trivialSearch(int id) {
+		int possibleWins = w[id] + r[id];
+		// XXX This can be sped up by caching just max(w).
+		for (int i = 0; i < numberOfTeams(); i++) {
+			if (id != i && possibleWins < w[i]) {
+				Result result = new Result(id);
+				result.addBetterTeam(i);
+				return Result;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Read in a sports division from an input file and print out whether each
 	 * team is eliminated and a certificate of elimination for each such team.
