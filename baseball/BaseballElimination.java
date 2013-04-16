@@ -14,7 +14,7 @@ public class BaseballElimination {
 	private final HashMap<String, Integer> teams; // Map team name to index
 	private final String[] ids; // Map index to team name
 	private final int[] w, l, r; // Wins, losses, remaining games
-	private final int[][] g; // Games left between teams i and j
+	private final int[][] g; // Games left between teams i and j. Lower triangular
 	private Result last; // Cached last result
 	private final int mostWins, leader; // For making trivialSearch() O(1)
 
@@ -36,7 +36,7 @@ public class BaseballElimination {
 		w = new int[n];
 		l = new int[n];
 		r = new int[n];
-		g = new int[n][n]; // XXX may be able to cut this in half (upper triangle)
+		g = new int[n][];
 		ids = new String[n];
 		String name;
 		int max = 0, argmax = 0;
@@ -47,8 +47,14 @@ public class BaseballElimination {
 			w[i] = file.readInt();
 			l[i] = file.readInt();
 			r[i] = file.readInt();
-			for (int j = 0; j < n; j++)
-				g[i][j] = file.readInt();
+			if (i > 0)
+				g[i] = new int[i];
+			for (int j = 0; j < n; j++) {
+				if (j < i)
+					g[i][j] = file.readInt();
+				else
+					file.readInt();
+			}
 			if (w[i] > max) {
 				max = w[i];
 				argmax = i;
@@ -100,7 +106,13 @@ public class BaseballElimination {
 	public int against(String team1, String team2) {
 		isTeam(team1);
 		isTeam(team2);
-		return g[teams.get(team1)][teams.get(team2)];
+		int i = teams.get(team1), j = teams.get(team2);
+		if (j < i)
+			return g[j][i];
+		else if (i < j)
+			return g[i][j];
+		else
+			return 0;
 	}
 
 	/**
@@ -193,7 +205,7 @@ public class BaseballElimination {
 		int n = numberOfTeams(), sum = 0;
 		for (int i = 0; i < n; i++)
 			if (i != id)
-				for (int j = i + 1; j < n; j ++)
+				for (int j = 0; j < i; j ++)
 					if (j != id)
 						sum += g[i][j];
 		if (maxflow < sum)
@@ -237,7 +249,7 @@ public class BaseballElimination {
 		for (int i = 0; i < n; i++) {
 			if (i == id)
 				continue;
-			for (int j = i + 1; j < n; j++) {
+			for (int j = 0; j < i; j++) {
 				if (j == id || g[i][j] == 0)
 					continue;
 				edges.add(new FlowEdge(source, v, g[i][j]));
