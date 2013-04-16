@@ -205,7 +205,7 @@ public class BaseballElimination {
 		int n = numberOfTeams(), sum = 0;
 		for (int i = 0; i < n; i++)
 			if (i != id)
-				for (int j = 0; j < i; j ++)
+				for (int j = 0; j < i; j++)
 					if (j != id)
 						sum += g[i][j];
 		if (maxflow < sum)
@@ -259,10 +259,10 @@ public class BaseballElimination {
 			}
 			edges.add(new FlowEdge(i, sink, maxcap - w[i]));
 		}
-		FlowNetwork g = new FlowNetwork(v);
+		FlowNetwork fn = new FlowNetwork(v);
 		for (FlowEdge e : edges)
-			g.addEdge(e);
-		return new FordFulkerson(g, source, sink);
+			fn.addEdge(e);
+		return new FordFulkerson(fn, source, sink);
 	}
 
 	/**
