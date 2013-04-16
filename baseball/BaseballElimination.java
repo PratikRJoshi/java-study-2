@@ -245,12 +245,13 @@ public class BaseballElimination {
 		int n = numberOfTeams(), source = n, sink = n + 1, v = n + 2,
 			maxcap = w[id] + r[id];
 		Bag<FlowEdge> edges = new Bag<FlowEdge>();
-		// Below, v is a game node, i and j are team nodes
+		// Below, v is a game node, i and j are team nodes. Don't include
+		// trivially eliminated teams.
 		for (int i = 0; i < n; i++) {
-			if (i == id)
+			if (i == id || w[i] + r[i] < mostWins)
 				continue;
 			for (int j = 0; j < i; j++) {
-				if (j == id || g[i][j] == 0)
+				if (j == id || g[i][j] == 0 || w[j] + r[j] < mostWins)
 					continue;
 				edges.add(new FlowEdge(source, v, g[i][j]));
 				edges.add(new FlowEdge(v, i, Double.POSITIVE_INFINITY));
