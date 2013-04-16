@@ -32,7 +32,7 @@ public class BaseballElimination {
 	public BaseballElimination(String filename) {
 		In file = new In(filename);
 		int n = file.readInt();
-		teams = new HashMap<String, Integer>(n + 1, 1.0); // Will never rehash
+		teams = new HashMap<String, Integer>(n + 1, 1.0f); // Will never rehash
 		w = new int[n];
 		l = new int[n];
 		r = new int[n];
@@ -98,7 +98,8 @@ public class BaseballElimination {
 	 * between <code>team1</code> and <code>team2</code>.
 	 */
 	public int against(String team1, String team2) {
-		isTeam(team);
+		isTeam(team1);
+		isTeam(team2);
 		return g[teams.get(team1)][teams.get(team2)];
 	}
 
@@ -139,7 +140,7 @@ public class BaseballElimination {
 
 		public void addBetterTeam(int id) {
 			assert id != teams.get(team);
-			if (cert == null) {
+			if (betterTeams == null) {
 				betterTeams = new Bag<String>();
 				eliminated = true;
 			}
@@ -166,7 +167,7 @@ public class BaseballElimination {
 		if (id != leader && w[id] + r[id] < mostWins) {
 			Result result = new Result(id);
 			result.addBetterTeam(leader);
-			return Result;
+			return result;
 		}
 		return null;
 	}
@@ -176,7 +177,7 @@ public class BaseballElimination {
 	// case (i.e., O(n^3)).
 	private Result fullSearch(int id) {
 		FordFulkerson maxFlow = buildGraphFor(id);
-		Result result = new Result(team);
+		Result result = new Result(id);
 		if (isEliminated(id, maxFlow.value()))
 			// The better teams are those on the source side of the min cut
 			for (int i = 0; i < numberOfTeams(); i++)
