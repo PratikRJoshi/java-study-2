@@ -108,9 +108,9 @@ public class BaseballElimination {
 		isTeam(team2);
 		int i = teams.get(team1), j = teams.get(team2);
 		if (j < i)
-			return g[j][i];
-		else if (i < j)
 			return g[i][j];
+		else if (i < j)
+			return g[j][i];
 		else
 			return 0;
 	}
