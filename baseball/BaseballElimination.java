@@ -181,6 +181,21 @@ public class BaseballElimination {
 		return result;
 	}
 
+	// Return if the max flow value calculated for id means id is eliminated
+	private boolean isEliminated(int id, double maxflow) {
+		// If the maxflow is less than the sum of the remaining games among
+		// opponents of id, then id is eliminated.
+		int n = numberOfTeams(), sum = 0;
+		for (int i = 0; i < n; i++)
+			if (i != id)
+				for (int j = i + 1; j < n; j ++)
+					if (j != id)
+						sum += g[i][j];
+		if (maxflow < sum)
+			return true;
+		return false;
+	}
+
 	/**
 	 * Build a <code>FlowNetwork</code> graph representing the ways the division
 	 * could beat team <code>id</code> and return the <code>FordFulkerson</code>
