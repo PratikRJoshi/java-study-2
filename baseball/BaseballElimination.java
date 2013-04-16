@@ -8,8 +8,10 @@
  */
 public class BaseballElimination {
 	private final HashMap<String, Integer> teams; // Map team name to index
+	private final String[] ids; // Map index to team name
 	private final int[] w, l, r; // Wins, losses, remaining games
 	private final int[][] g; // Games left between teams i and j
+	private Result last; // Cached last result
 
 	/**
 	 * Create a baseball division from given filename in format specified below.
@@ -30,8 +32,12 @@ public class BaseballElimination {
 		l = new int[n];
 		r = new int[n];
 		g = new int[n][n]; // XXX may be able to cut this in half (upper triangle)
+		ids = new String[n];
+		String name;
 		for (int i = 0; i < n; i++) {
-			teams.put(file.readString(), i);
+			name = file.readString();
+			teams.put(name, i);
+			ids[i] = name;
 			w[i] = file.readInt();
 			l[i] = file.readInt();
 			r[i] = file.readInt();
@@ -84,16 +90,61 @@ public class BaseballElimination {
 		return g[teams.get(team1)][teams.get(team2)];
 	}
 
-	// is given team eliminated?
-	public boolean isEliminated(String team);
+	/**
+	 * Return true if the given team cannot finish the season in first place in
+	 * the division.
+	 */
+	public boolean isEliminated(String team) {
+		solve(team);
+		return last.eliminated;
+	}
 
-	// subset R of teams that eliminates given team; null if not eliminated
-	public Iterable<String> certificateOfElimination(String team);
+	/**
+	 * If the given team cannot finish the season in first place in the division
+	 * return an iterable of the names of the teams that beat it out. Otherwise
+	 * return <code>null</code>.
+	 */
+	public Iterable<String> certificateOfElimination(String team) {
+		solve(team);
+		return last.betterTeams;
+	}
 
 	// Throw IllegalArgumentException if team name not recognized.
 	private void isTeam(String team) {
 		if (!teams.containsKey(team))
 			throw new IllegalArgumentException("Unrecognized team: " + team);
+	}
+
+	// For holding the result of an elimination search. Default/"zeroed" Result
+	// is an uneliminated team. To eliminate the team, simply add teams better
+	// than it.
+	private class Result {
+		private final String team;
+		private boolean eliminated;
+		private Bag<String> betterTeams;
+
+		public Result(int id) { this.team = ids[id]; }
+
+		public void addBetterTeam(int id) {
+			assert id != teams.get(team);
+			if (cert == null) {
+				betterTeams = new Bag<String>();
+				eliminated = true;
+			}
+			betterTeams.add(ids[id]);
+		}
+	}
+
+	// If no or wrong solution cached, first try a trivial solution, then do a
+	// full search, and cache the result.
+	private void solve(String team) {
+		if (last != null && last.team == team)
+			return;
+		isTeam(team);
+		int id = teams.get(team);
+		last = trivialSearch(id);
+		if (last == null)
+			last = fullSearch(id);
 	}
 
 	/**
