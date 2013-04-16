@@ -40,7 +40,9 @@ public class BaseballElimination {
 		}
 	}
 
-	// number of teams
+	/**
+	 * Return the number of teams in the division.
+	 */
 	public int numberOfTeams() { return teams.size(); }
 
 	/**
