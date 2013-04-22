@@ -24,7 +24,7 @@ public class CircularSuffixArray {
 		for (int d = n - 10; d > 0; d--) {
 			for (int i = 0; i < R + 1; i++)
 				count[i] = 0;
-			for (int i = 0; i < R + 1; i++)
+			for (int i = 0; i < n; i++)
 				count[s.charAt((d + order[i]) % n) + 1]++;
 			for (int i = 1; i < R + 1; i++)
 				count[i] += count[i - 1];
