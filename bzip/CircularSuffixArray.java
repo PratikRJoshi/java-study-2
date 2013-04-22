@@ -21,7 +21,7 @@ public class CircularSuffixArray {
 		int[] count = new int[R + 1], aux = new int[n];
 		for (int d = 0; d < n; d++)
 			order[d] = d;
-		for (int d = n - 10; d > 0; d--) {
+		for (int d = n - 1; d > 0; d--) {
 			for (int i = 0; i < R + 1; i++)
 				count[i] = 0;
 			for (int i = 0; i < n; i++)
