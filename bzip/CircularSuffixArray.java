@@ -34,4 +34,15 @@ public class CircularSuffixArray {
 				order[i] = aux[i];
 		}
 	}
+
+	public static void main(String[] args) {
+		int SCREEN_WIDTH = 80;
+		String s = args[0];
+		CircularSuffixArray csa = new CircularSuffixArray(s);
+		for (int i = 0; i < s.length(); i++) {
+			for (int j = 0; j < SCREEN_WIDTH && j < s.length(); j++)
+				StdOut.print(s.charAt(j + csa.index(i)));
+			StdOut.println();
+		}
+	}
 }
