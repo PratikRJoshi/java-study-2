@@ -38,11 +38,13 @@ public class CircularSuffixArray {
 	public static void main(String[] args) {
 		int SCREEN_WIDTH = 80;
 		String s = args[0];
-		StdOut.printf("String length: %d\n", s.length());
+		int n = s.length();
+		StdOut.printf("String length: %d\n", n);
 		CircularSuffixArray csa = new CircularSuffixArray(s);
-		for (int i = 0; i < s.length(); i++) {
-			for (int j = 0; j < SCREEN_WIDTH && j < s.length(); j++)
-				StdOut.print(s.charAt(j + csa.index(i)));
+		for (int i = 0; i < n; i++) {
+			StdOut.printf("%3d  ", i);
+			for (int j = 0; j < (SCREEN_WIDTH - 5) && j < n; j++)
+				StdOut.print(s.charAt((j + csa.index(i)) % n));
 			StdOut.println();
 		}
 	}
