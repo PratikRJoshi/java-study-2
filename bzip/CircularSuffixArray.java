@@ -38,6 +38,7 @@ public class CircularSuffixArray {
 	public static void main(String[] args) {
 		int SCREEN_WIDTH = 80;
 		String s = args[0];
+		StdOut.printf("String length: %d\n", s.length());
 		CircularSuffixArray csa = new CircularSuffixArray(s);
 		for (int i = 0; i < s.length(); i++) {
 			for (int j = 0; j < SCREEN_WIDTH && j < s.length(); j++)
