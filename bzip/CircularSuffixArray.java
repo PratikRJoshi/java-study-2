@@ -16,6 +16,10 @@ public class CircularSuffixArray {
 	// returns index of ith sorted suffix
 	public int index(int i) { return order[i]; }
 
+	private char charAt(String s, int suffix, int offset) {
+		return s.charAt((suffix + offset) % n);
+	}
+
 	// LSD Radix sort the circular suffixes of s
 	private void sort(String s) {
 		int[] count = new int[R + 1], aux = new int[n];
@@ -25,11 +29,11 @@ public class CircularSuffixArray {
 			for (int i = 0; i < R + 1; i++)
 				count[i] = 0;
 			for (int i = 0; i < n; i++)
-				count[s.charAt((d + order[i]) % n) + 1]++;
+				count[charAt(s, order[i], d) + 1]++;
 			for (int i = 1; i < R + 1; i++)
 				count[i] += count[i - 1];
 			for (int i = 0; i < n; i++)
-				aux[count[s.charAt((d + order[i]) % n)]++] = order[i];
+				aux[count[charAt(s, order[i], d)]++] = order[i];
 			for (int i = 0; i < n; i++)
 				order[i] = aux[i];
 		}
