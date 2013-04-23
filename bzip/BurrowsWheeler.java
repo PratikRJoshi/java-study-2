@@ -9,11 +9,12 @@ public class BurrowsWheeler {
 		BinaryStdOut.write(findFirst(csa));
 		for (int i = 0; i < csa.length(); i++)
 			BinaryStdOut.write(s.charAt((csa.index(i) + n - 1) % n));
+		BinaryStdOut.close();
 	}
 
 	// Find the location in the CircularSuffixArray sorted order of the original
 	// string
-	private int findFirst(CircularSuffixArray csa) {
+	private static int findFirst(CircularSuffixArray csa) {
 		for (int i = 0; i < csa.length(); i++)
 			if (csa.index(i) == 0)
 				return i;
