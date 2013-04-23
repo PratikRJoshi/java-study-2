@@ -8,7 +8,7 @@ public class BurrowsWheeler {
 		CircularSuffixArray csa = new CircularSuffixArray(s);
 		BinaryStdOut.write(findFirst(csa));
 		for (int i = 0; i < csa.length(); i++)
-			BinaryStdOut.write(s.charAt((csa.index(i) + n - 1) % n), 8);
+			BinaryStdOut.write(s.charAt((csa.index(i) + n - 1) % n));
 	}
 
 	// Find the location in the CircularSuffixArray sorted order of the original
