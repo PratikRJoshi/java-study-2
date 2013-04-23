@@ -2,7 +2,23 @@ public class BurrowsWheeler {
 
 	// apply Burrows-Wheeler encoding, reading from standard input and writing
 	// to standard output
-	public static void encode();
+	public static void encode() {
+		String s = BinaryStdIn.readString();
+		int n = s.length();
+		CircularSuffixArray csa = new CircularSuffixArray(s);
+		BinaryStdOut.write(findFirst(csa));
+		for (int i = 0; i < csa.length(); i++)
+			BinaryStdOut.write(s.charAt((csa.index(i) + n - 1) % n), 8);
+	}
+
+	// Find the location in the CircularSuffixArray sorted order of the original
+	// string
+	private int findFirst(CircularSuffixArray csa) {
+		for (int i = 0; i < csa.length(); i++)
+			if (csa.index(i) == 0)
+				return i;
+		throw new IllegalArgumentException("Couldn't find first");
+	}
 
 	// apply Burrows-Wheeler decoding, reading from standard input and writing
 	// to standard output
