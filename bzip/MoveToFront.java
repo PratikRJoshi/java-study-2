@@ -5,14 +5,17 @@ public class MoveToFront {
 	// standard output
 	public static void encode() {
 		char[] chars = radixList();
-		char count, ch;
+		char count, ch, tmpin, tmpout;
 		while (!BinaryStdIn.isEmpty()) {
 			ch = BinaryStdIn.readChar();
-			for (count = 0; ch != chars[count]; count++);
+			for (count = 0, tmpout = chars[0]; ch != chars[count]; count++) {
+				tmpin = chars[count];
+				chars[count] = tmpout;
+				tmpout = tmpin;
+			}
+			chars[count] = tmpout;
 			BinaryStdOut.write(count);
-			for (; count > 1; count--)
-				chars[count] = chars[count - 1];
-			chars[count] = ch;
+			chars[0] = ch;
 		}
 		BinaryStdOut.close();
 	}
