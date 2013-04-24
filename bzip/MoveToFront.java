@@ -6,8 +6,9 @@ public class MoveToFront {
 	public static void encode() {
 		Node first = radixList(), prev, oldfirst;
 		while (!BinaryStdIn.isEmpty()) {
-			char ch = BinaryStdIn.readChar(), count = 1;
+			char ch = BinaryStdIn.readChar(), count = 0;
 			if (first.value != ch) {
+				count++;
 				for (prev = oldfirst = first; prev.next.value != ch; count++)
 					prev = prev.next;
 				first = prev.next;
