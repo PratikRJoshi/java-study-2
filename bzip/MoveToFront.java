@@ -6,17 +6,14 @@ public class MoveToFront {
 	public static void encode() {
 		Node first = radixList(), prev, oldfirst;
 		while (!BinaryStdIn.isEmpty()) {
-			char ch = BinaryStdIn.readChar();
-			if (first.value == ch) {
-				BinaryStdOut.write('\0');
-				continue;
+			char ch = BinaryStdIn.readChar(), count = 1;
+			if (first.value != ch) {
+				for (prev = oldfirst = first; prev.next.value != ch; count++)
+					prev = prev.next;
+				first = prev.next;
+				prev.next = prev.next.next;
+				first.next = oldfirst;
 			}
-			char count = 1;
-			for (prev=oldfirst = first; prev.next.value != ch; prev = prev.next)
-				count++;
-			first = prev.next;
-			prev.next = prev.next.next;
-			first.next = oldfirst;
 			BinaryStdOut.write(count);
 		}
 		BinaryStdOut.close();
