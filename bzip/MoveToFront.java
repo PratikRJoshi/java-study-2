@@ -1,11 +1,61 @@
 public class MoveToFront {
+	private static final int R = 256;
+
 	// apply move-to-front encoding, reading from standard input and writing to
 	// standard output
-	public static void encode();
+	public static void encode() {
+		Node first = radixList(), prev, oldfirst;
+		while (!BinaryStdIn.isEmpty()) {
+			char ch = BinaryStdIn.readChar();
+			if (first.value == ch) {
+				BinaryStdOut.write('\0');
+				continue;
+			}
+			char count = 1;
+			for (prev=oldfirst = first; prev.next.value != ch; prev = prev.next)
+				count++;
+			first = prev.next;
+			prev.next = prev.next.next;
+			first.next = oldfirst;
+			BinaryStdOut.write(count);
+		}
+		BinaryStdOut.close();
+	}
 
 	// apply move-to-front decoding, reading from standard input and writing to
 	// standard output
-	public static void decode();
+	public static void decode() {
+		Node first = radixList(), prev, oldfirst;
+		while (!BinaryStdIn.isEmpty()) {
+			char ch = BinaryStdIn.readChar();
+			if (ch != 0) {
+				prev = oldfirst = first;
+				for (char count = 1; count < ch; count++)
+					prev = prev.next;
+				first = prev.next; // prev.next != null because count < ch < R.
+				prev.next = prev.next.next;
+				first.next = oldfirst;
+			}
+			BinaryStdOut.write(first.value);
+		}
+		BinaryStdOut.close();
+	}
+
+	private static class Node {
+		private char value;
+		private Node next;
+		private Node(char i) { value = i; }
+	}
+
+	// Return a linked list of elements of language with radix R in order.
+	private static Node radixList() {
+		Node first = new Node('\0'), last = first;
+		for (char i = 1; i < R; i++) {
+			last.next = new Node(i);
+			last = last.next;
+		}
+		return first;
+	}
 
 	// if args[0] is '-', apply move-to-front encoding
 	// if args[0] is '+', apply move-to-front decoding
