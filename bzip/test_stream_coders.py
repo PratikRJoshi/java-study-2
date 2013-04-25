@@ -10,13 +10,13 @@ import os
 
 
 TEST_DATA  = os.path.join('instructor', 'test')
-MAXDIFFLENGTH = 800
-EXTS = ['.huf', '.bwt', '.mtf']
+MAXDIFFLENGTH = 800 # Longest byte stream for Python to try to diff.
+EXTS = ['.huf', '.bwt', '.mtf'] # Extensions of encoded files
 
 if os.name == 'posix':
 	JAVA = ['java']
 	JAVAC = ['javac']
-else:
+else: # Everything is always harder on Windows...
 	_ALGS4_HOME= os.sep.join(['C:', os.path.join('Users', 'wschwartz', 'algs4')])
 	_STDLIB    = os.path.join(_ALGS4_HOME, 'stdlib.jar')
 	_ALGS4     = os.path.join(_ALGS4_HOME, 'algs4.jar')
@@ -25,6 +25,7 @@ else:
 	JAVAC      = ['javac', '-cp', _CLASSPATH]
 
 
+# For Python 3.2/3.3 compatibility
 try:
 	FileNotFoundError
 except NameError:
@@ -65,10 +66,12 @@ class StreamTest:
 
 	@classmethod
 	def _encs(cls):
+		"Return list of files encoded by reference version of prog"
 		return glob.glob(os.path.join(TEST_DATA, '*') + cls.ext)
 
 	@classmethod
 	def _raws(cls):
+		"Return list of files where a reference-encoded version exists"
 		return [os.path.splitext(i)[0] for i in cls._encs()]
 
 	def _test_halftrip(self, from_files, to_files, cmd, action):
