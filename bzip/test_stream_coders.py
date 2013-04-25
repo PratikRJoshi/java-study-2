@@ -94,7 +94,7 @@ class StreamTest:
 			return JAVA + [self.prog, '-', '<', f, '|'] + JAVA + [self.prog, '+']
 		filename = None
 		for filename in self._all_raws():
-			mine = subprocess.check_output(cmd(filename), shell=True)
+			mine = subprocess.check_output(' '.join(cmd(filename)), shell=True)
 			with open(filename, 'rb') as f:
 				theirs = f.read()
 			if len(theirs) <= MAXDIFFLENGTH:
