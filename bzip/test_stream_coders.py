@@ -2,6 +2,7 @@
 
 "Test the Java stream coders in the bzip assignment."
 
+
 import unittest
 import subprocess
 import glob
