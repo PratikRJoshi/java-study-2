@@ -21,6 +21,15 @@ else:
 	JAVA       = ['java',  '-cp', _CLASSPATH]
 	JAVAC      = ['javac', '-cp', _CLASSPATH]
 
+
+try:
+	FileNotFoundError
+except NameError:
+	import errno
+	class FileNotFoundError(OSError):
+		errno = errno.ENOENT
+
+
 class StreamTest:
 
 	"Test encoding (-) and decoding (+) of binary streams by prog"
