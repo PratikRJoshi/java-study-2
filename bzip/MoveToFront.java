@@ -27,11 +27,9 @@ public class MoveToFront {
 		char count, ch;
 		while (!BinaryStdIn.isEmpty()) {
 			count = BinaryStdIn.readChar();
-			ch = chars[count];
+			for (ch = chars[count]; count > 0; chars[count] = chars[--count]);
+			chars[count] = ch; // assert count == 0;
 			BinaryStdOut.write(ch);
-			for (; count > 0; count--)
-				chars[count] = chars[count - 1];
-			chars[count] = ch;
 		}
 		BinaryStdOut.close();
 	}
