@@ -106,8 +106,11 @@ def main(argv=None):
 			print(times[-1])
 	avg = sum(times)/len(times)
 	print('average:', sum(times)/len(times), file=sys.stderr)
-	print('stddev :', sqrt(sum((xi - avg)**2 for xi in times) / (len(times) - 1)))
-	print('obs    :', len(times))
+	stddev = sqrt(sum((xi - avg)**2 for xi in times) / (len(times) - 1))
+	print('stddev :', stddev, file=sys.stderr)
+	print('obs    :', len(times), file=sys.stderr)
+	print('min    :', min(times), file=sys.stderr)
+	print('max    :', max(times), file=sys.stderr)
 
 
 if __name__ == '__main__':
