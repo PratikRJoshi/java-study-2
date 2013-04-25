@@ -98,8 +98,8 @@ class StreamTest:
 			with open(filename, 'rb') as f:
 				theirs = f.read()
 			if len(theirs) <= MAXDIFFLENGTH:
-				self.assertMultiLineEqual(mine, theirs,
-										  'roundtrip: %r' % filename)
+				self.assertSequenceEqual(mine, theirs,
+										 'roundtrip: %r' % filename)
 			elif mine != theirs:
 				self.fail('roundtrip: %r' % filename)
 		if filename is None:
