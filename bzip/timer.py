@@ -10,6 +10,7 @@ import errno
 import time
 import os
 import sys
+from math import sqrt
 
 
 if os.name == 'posix':
@@ -96,11 +97,17 @@ def parse_args(argv=None):
 def main(argv=None):
 	"Print time to run command to stdout."
 	args = parse_args()
+	times = []
 	with Class(args.classname):
 		print('Running', args.classname, args.repeat, 'times', file=sys.stderr)
 		command = cmd(args.classname, args.file, args.action)
 		for i in range(args.repeat):
-			print(timeof(command))
+			times.append(timeof(command))
+			print(times[-1])
+	avg = sum(times)/len(times)
+	print('average:', sum(times)/len(times), file=sys.stderr)
+	print('stddev :', sqrt(sum((xi - avg)**2 for xi in times) / (len(times) - 1)))
+	print('obs    :', len(times))
 
 
 if __name__ == '__main__':
