@@ -85,7 +85,7 @@ class StreamTest:
 										 '%s: %r' % (action, from_file))
 			elif mine != theirs:
 				self.fail('%s: %r' % (action, from_file))
-		if filename is None:
+		if from_file is None:
 			raise FileNotFoundError("Empty from or to lists")
 
 	def test_roundtrip(self):
