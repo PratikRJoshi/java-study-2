@@ -29,7 +29,7 @@ public class MoveToFront {
 			count = BinaryStdIn.readChar();
 			ch = chars[count];
 			BinaryStdOut.write(ch);
-			for (; count > 1; count--)
+			for (; count > 0; count--)
 				chars[count] = chars[count - 1];
 			chars[count] = ch;
 		}
