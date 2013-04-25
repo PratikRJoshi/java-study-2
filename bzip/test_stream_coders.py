@@ -1,4 +1,4 @@
-#! python
+#! python3
 
 "Test the Java stream coders in the bzip assignment."
 
@@ -8,14 +8,18 @@ import glob
 import os
 
 
-_ALGS4_HOME= os.sep.join(['C:', os.path.join('Users', 'wschwartz', 'algs4')])
-_STDLIB    = os.path.join(_ALGS4_HOME, 'stdlib.jar')
-_ALGS4     = os.path.join(_ALGS4_HOME, 'algs4.jar')
-_CLASSPATH = os.pathsep.join([_STDLIB, _ALGS4, os.curdir])
 TEST_DATA  = os.path.join('instructor', 'test')
-JAVA       = ['java',  '-cp', _CLASSPATH]
-JAVAC      = ['javac', '-cp', _CLASSPATH]
 MAXDIFFLENGTH = 800
+if os.name == 'posix':
+	JAVA = ['java']
+	JAVAC = ['javac']
+else:
+	_ALGS4_HOME= os.sep.join(['C:', os.path.join('Users', 'wschwartz', 'algs4')])
+	_STDLIB    = os.path.join(_ALGS4_HOME, 'stdlib.jar')
+	_ALGS4     = os.path.join(_ALGS4_HOME, 'algs4.jar')
+	_CLASSPATH = os.pathsep.join([_STDLIB, _ALGS4, os.curdir])
+	JAVA       = ['java',  '-cp', _CLASSPATH]
+	JAVAC      = ['javac', '-cp', _CLASSPATH]
 
 class StreamTest:
 
