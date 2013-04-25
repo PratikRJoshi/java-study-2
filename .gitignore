@@ -1,4 +1,7 @@
+# Object files #
 *.class
+*.pyc
+__pycache__/*
 
 # Package Files #
 *.jar
