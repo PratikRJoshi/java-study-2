@@ -1,4 +1,4 @@
-#! python3
+#! /usr/bin/env python3
 
 "Test the Java stream coders in the bzip assignment."
 
