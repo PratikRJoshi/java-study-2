@@ -7,19 +7,14 @@ public class BurrowsWheeler {
 		String s = BinaryStdIn.readString();
 		int n = s.length();
 		CircularSuffixArray csa = new CircularSuffixArray(s);
-		BinaryStdOut.write(findFirst(csa));
+		int first;
+		for (first = 0; i < csa.length(); i++)
+			if (csa.index(i) == 0)
+				break;
+		BinaryStdOut.write(first);
 		for (int i = 0; i < csa.length(); i++)
 			BinaryStdOut.write(s.charAt((csa.index(i) + n - 1) % n));
 		BinaryStdOut.close();
-	}
-
-	// Find the location in the CircularSuffixArray sorted order of the original
-	// string
-	private static int findFirst(CircularSuffixArray csa) {
-		for (int i = 0; i < csa.length(); i++)
-			if (csa.index(i) == 0)
-				return i;
-		throw new IllegalArgumentException("Couldn't find first");
 	}
 
 	// apply Burrows-Wheeler decoding, reading from standard input and writing
