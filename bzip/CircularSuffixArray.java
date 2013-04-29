@@ -1,5 +1,5 @@
 public class CircularSuffixArray {
-	private static final int R = 256;
+	private static final int R = 256, CUTOFF = 15;
 	private final int n;
 	private int[] order;
 
@@ -26,6 +26,10 @@ public class CircularSuffixArray {
 	// starting at index offset. Code adapted from
 	// http://algs4.cs.princeton.edu/51radix/Quick3string.java.html
 	private void sort(String s, int lo, int hi, int offset) {
+		if (hi - lo <= CUTOFF) {
+			insertion(s, lo, hi, offset);
+			return;
+		}
 		int lt = lo, gt = hi, piv = charAt(s, order[lo], offset), eq = lo + 1;
 		while (eq <= gt) {
 			int t = charAt(s, order[eq], offset);
@@ -43,6 +47,27 @@ public class CircularSuffixArray {
 		int tmp = order[i];
 		order[i] = order[j];
 		order[j] = tmp;
+	}
+
+	// Insertion sort starting at index offset. Code adapted from
+	// http://algs4.cs.princeton.edu/51radix/Quick3string.java.html
+	private void insertion(String s, int lo, int hi, int offset) {
+		for (int i = lo; i <= hi; i++)
+			for (int j = i; j > lo && less(s, j, j - 1, offset); j--)
+				exch(j, j - 1);
+	}
+
+	// Is suffix i less than suffix j, starting at offset
+	private boolean less(String s, int i, int j, int offset) {
+		int oi = order[i], oj = order[j];
+		for (; offset < n; offset++) {
+			int ival = charAt(s, oi, offset), jval = charAt(s, oj, offset);
+			if (ival < jval)
+				return true;
+			else if (ival > jval)
+				return false;
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {
