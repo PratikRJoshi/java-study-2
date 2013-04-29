@@ -8,8 +8,8 @@ public class BurrowsWheeler {
 		int n = s.length();
 		CircularSuffixArray csa = new CircularSuffixArray(s);
 		int first;
-		for (first = 0; i < csa.length(); i++)
-			if (csa.index(i) == 0)
+		for (first = 0; first < csa.length(); first++)
+			if (csa.index(first) == 0)
 				break;
 		BinaryStdOut.write(first);
 		for (int i = 0; i < csa.length(); i++)
