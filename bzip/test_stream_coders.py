@@ -123,7 +123,6 @@ class TestMoveToFront(StreamTest, unittest.TestCase):
 	ext = 'mtf'
 
 
-@unittest.skip("Takes too long until CircularSuffixArray is sped up")
 class TestBurrowsWheeler(StreamTest, unittest.TestCase):
 	prog = 'BurrowsWheeler'
 	ext = 'bwt'
