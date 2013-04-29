@@ -7,7 +7,9 @@ public class CircularSuffixArray {
 	public CircularSuffixArray(String s) {
 		n = s.length();
 		order = new int[n];
-		sort(s);
+		for (int i = 0; i < n; i++)
+			order[i] = i;
+		sort(s, 0, n - 1, 0);
 	}
 
 	// length of s
@@ -20,23 +22,27 @@ public class CircularSuffixArray {
 		return s.charAt((suffix + offset) % n);
 	}
 
-	// LSD Radix sort the circular suffixes of s
-	private void sort(String s) {
-		int[] count = new int[R + 1], aux = new int[n];
-		for (int d = 0; d < n; d++)
-			order[d] = d;
-		for (int d = n - 1; d >= 0; d--) {
-			for (int i = 0; i < R + 1; i++)
-				count[i] = 0;
-			for (int i = 0; i < n; i++)
-				count[charAt(s, order[i], d) + 1]++;
-			for (int i = 1; i < R + 1; i++)
-				count[i] += count[i - 1];
-			for (int i = 0; i < n; i++)
-				aux[count[charAt(s, order[i], d)]++] = order[i];
-			for (int i = 0; i < n; i++)
-				order[i] = aux[i];
+	// 3-way String Quicksort circular suffixes of string s from lo to hi
+	// starting at index offset. Code adapted from
+	// http://algs4.cs.princeton.edu/51radix/Quick3string.java.html
+	private void sort(String s, int lo, int hi, int offset) {
+		int lt = lo, gt = hi, piv = charAt(s, order[lo], offset), eq = lo + 1;
+		while (eq <= gt) {
+			int t = charAt(s, order[eq], offset);
+			if      (t < piv) exch(lt++, eq++);
+			else if (t > piv) exch(eq, gt--);
+			else              eq++;
 		}
+		sort(s, lo, lt - 1, offset);
+		if (piv >= 0)
+			sort(s, lt, gt, offset + 1);
+		sort(s, gt + 1, hi, offset);
+	}
+
+	private void exch(int i, int j) {
+		int tmp = order[i];
+		order[i] = order[j];
+		order[j] = tmp;
 	}
 
 	public static void main(String[] args) {
