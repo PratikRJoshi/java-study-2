@@ -1,9 +1,30 @@
+/*******************************************************************************
+ * Sort the circular suffixes of an input string.
+ * <p>
+ * For the string "ball", the following are circular suffixes: "ball", "allb",
+ * "llba", and "lbal". In this case, the <code>length()</code> method would reutnr
+ * <code>4</code> and <code>index(1)</code> would return <code>0</code>.
+ * <p>
+ * The command-line unit testing code takes input from standard in and writes a
+ * table of the sorted circular suffixes to standard out.
+ * <p>
+ * The extra space instances of this class use is linear in the size of the
+ * input string. See the methods for their running times.
+ *
+ * @author William Schwartz <wkschwartz@gmail.com>
+ ******************************************************************************/
 public class CircularSuffixArray {
 	private static final int R = 256, CUTOFF = 15;
 	private final int n;
 	private int[] order;
 
-	// circular suffix array of s
+	/**
+	 * Circular suffix array of string <code>s</code>.
+	 * <p>
+	 * Running time is O(n^2 log n) in the worst case when is <code>n ==
+	 * s.length()</code>. This occurs when there are long repeated
+	 * substrings. In the average case the running time is O(n log n).
+	 */
 	public CircularSuffixArray(String s) {
 		n = s.length();
 		order = new int[n];
@@ -12,12 +33,29 @@ public class CircularSuffixArray {
 		sort(s, 0, n - 1, 0);
 	}
 
-	// length of s
+	/**
+	 * Length of the string (which is the number of suffixes).
+	 * <p>
+	 * If looping over the contets of the <code>index</code> method,
+	 * <code>length()</code> is the appropriate upper bound for the loop.
+	 * <p>
+	 * Running time is constant.
+	 */
 	public int length() { return n; }
 
-	// returns index of ith sorted suffix
+	/**
+	 * Return index in the sorted order of the suffix beginning at index
+	 * <code>i</code>.
+	 * <p>
+	 * If looping over the contets of the <code>index</code> method,
+	 * <code>length()</code> is the appropriate upper bound for the loop.
+	 * <p>
+	 * Running time is constant.
+	 */
 	public int index(int i) { return order[i]; }
 
+	// Return the (offset)th character of the suffix beginning in s at index
+	// suffix.
 	private char charAt(String s, int suffix, int offset) {
 		return s.charAt((suffix + offset) % n);
 	}
@@ -70,6 +108,10 @@ public class CircularSuffixArray {
 		return false;
 	}
 
+	/**
+	 * Sort the circular suffixes from the standard input and print a table of
+	 * them on standard output.
+	 */
 	public static void main(String[] args) {
 		int SCREEN_WIDTH = 80;
 		String s = BinaryStdIn.readString();
