@@ -1,3 +1,21 @@
+/*******************************************************************************
+ * Move-to-front algorithm for compression preprocessing.
+ * <p>
+ * By preprocessing data to be compressed with the move-to-front algorithm, we
+ * move commonly used characters close together, making Huffman coding more
+ * effective.
+ * <p>
+ * The interface to this class isn't useful programmatically because of the API
+ * requirements of the assignment. However, the command-line usage is
+ * straightforward.
+ * <p>
+ * Usage: <code>java MoveToFront { + | - } < <em>binstdin</em> > <em>binstdout
+ * </em></code>
+ * <p>
+ * <code>-</code> encodes and <code>+</code> decodes.
+ *
+ * @author William Schwartz <wkschwartz@gmail.com>
+ ******************************************************************************/
 public class MoveToFront {
 	private static final int R = 256;
 
