@@ -26,12 +26,13 @@ public class BurrowsWheeler {
 	public static void decode() {
 		int first = BinaryStdIn.readInt();
 		String t = BinaryStdIn.readString();
-		int[] count = new int[R + 1], next = new int[t.length()];
-		for (int i = 0; i < t.length(); i++)
+		int n = t.length();
+		int[] count = new int[R + 1], next = new int[n];
+		for (int i = 0; i < n; i++)
 			count[t.charAt(i) + 1]++;
 		for (int i = 1; i < R + 1; i++)
 			count[i] += count[i - 1];
-		for (int i = 0; i < t.length(); i++)
+		for (int i = 0; i < n; i++)
 			next[count[t.charAt(i)]++] = i;
 		for (int i = next[first]; i != first; i = next[i])
 			BinaryStdOut.write(t.charAt(i));
