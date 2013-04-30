@@ -1,0 +1,416 @@
+Submission
+Submission time	Tue-30-Apr 01:07:00
+Raw Score  100.00 / 100.00
+Feedback   See the Assessment Guide for information on how to read this report.
+Assessment Summary
+Compilation:  PASSED
+Style:        FAILED
+Findbugs:     No potential bugs found.
+API:          PASSED
+
+Correctness:  28/28 tests passed
+Memory:       6/6 tests passed
+Timing:       5/5 tests passed
+
+Raw score: 100.00% [Correctness: 65%, Memory: 10%, Timing: 25%, Style: 0%]
+Assessment Details
+files submitted
+----------------------------------
+total 20K
+-rw-r--r-- 1 2.7K Apr 30 05:07 BurrowsWheeler.java
+-rw-r--r-- 1 4.2K Apr 30 05:07 CircularSuffixArray.java
+-rw-r--r-- 1 2.4K Apr 30 05:07 MoveToFront.java
+-rw-r--r-- 1 4.0K Apr 30 05:07 studentSubmission.zip
+
+
+******************************************************************************
+*  compiling
+******************************************************************************
+
+
+% javac CircularSuffixArray.java
+*-----------------------------------------------------------
+================================================================
+
+% javac BurrowsWheeler.java
+*-----------------------------------------------------------
+================================================================
+
+% javac MoveToFront.java
+*-----------------------------------------------------------
+================================================================
+
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+CircularSuffixArray.java:17:1: File contains tab characters (this is the first instance).
+CircularSuffixArray.java:17:52: Only one statement per line allowed.
+CircularSuffixArray.java:101:42: Assignment of parameter 'offset' is not allowed.
+CircularSuffixArray.java:120:49: Avoid inline conditionals.
+BurrowsWheeler.java:20:1: File contains tab characters (this is the first instance).
+MoveToFront.java:20:1: File contains tab characters (this is the first instance).
+MoveToFront.java:48:90: Empty statement.
+MoveToFront.java:58:53: Empty statement.
+================================================================
+
+
+% checkIO *.java
+-----------------------------------------------------------
+/u/cos226/bin/checkstyle-burrows: Command not found.
+
+
+% findbugs *.class
+*-----------------------------------------------------------
+================================================================
+
+
+Testing the APIs of your programs.
+*-----------------------------------------------------------
+BurrowsWheeler:
+
+MoveToFront:
+
+================================================================
+
+
+******************************************************************************
+*  executing
+******************************************************************************
+
+Testing methods in CircularSuffixArray
+*-----------------------------------------------------------
+Running 4 total tests.
+
+Test 1: Testing index() and length() for Circular Suffix Array generated using random alphanumeric strings of at most length 10.
+==> passed
+
+Test 2: Testing index() and length() for Circular Suffix Array generated using random alphanumeric strings of at most length 100.
+==> passed
+
+Test 3: Testing index() and length() for Circular Suffix Array generated using random strings of at most length 10.
+==> passed
+
+Test 4: Testing index() and length() for Circular Suffix Array generated using random strings of at most length 100.
+==> passed
+
+Total: 4/4 tests passed!
+
+================================================================
+
+******************************************************************************
+*  **** executing with reference CircularSuffixArray.java ****
+******************************************************************************
+
+Testing methods in BurrowsWheeler
+*-----------------------------------------------------------
+Running 12 total tests.
+
+Test 0: testing main()
+
+% java BurrowsWheeler - < abra.txt | java HexDump 16
+00 00 00 03 41 52 44 21 52 43 41 41 41 41 42 42 
+
+% java BurrowsWheeler - < abra.txt | java BurrowsWheeler + 
+ABRACADABRA!
+
+==> passed
+
+Test 1: encode()
+  * cadabra.txt
+  * amendments.txt
+  * zebra.txt
+  * alphanum.txt
+  * a.txt
+==> passed
+
+Test 2: decode()
+  * cadabra.txt
+  * amendments.txt
+  * zebra.txt
+  * alphanum.txt
+  * a.txt
+  * stars.txt
+  * couscous.txt
+==> passed
+
+Test 3: check that decode(encode()) = original
+  * cadabra.txt
+  * amendments.txt
+  * zebra.txt
+  * alphanum.txt
+  * a.txt
+  * stars.txt
+  * couscous.txt
+==> passed
+
+Test 4: encode() on binary inputs
+  * us.gif
+  * CS_bricks.jpg
+  * rand10K.bin
+==> passed
+
+Test 5: decode() on binary inputs
+  * us.gif
+  * CS_bricks.jpg
+  * rand10K.bin
+==> passed
+
+Test 6: check that decode(encode()) = original on binary inputs
+  * us.gif
+  * CS_bricks.jpg
+  * rand10K.bin
+==> passed
+
+Test 7: calling close() or flush() in encode()
+  * amendments.txt
+==> passed
+
+Test 8: calling close() or flush() in decode()
+  * amendments.txt
+==> passed
+
+Test 9: encode() on large inputs
+  * rand100K.bin
+  * world192.txt
+==> passed
+
+Test 10: decode() on large inputs
+  * rand100K.bin
+  * world192.txt
+==> passed
+
+Test 11: check that decode(encode()) = original on large inputs
+  * rand100K.bin
+  * world192.txt
+==> passed
+
+
+Total: 12/12 tests passed!
+
+================================================================
+
+Testing methods in MoveToFront
+*-----------------------------------------------------------
+Running 12 total tests.
+
+Test 0: testing main()
+
+% java MoveToFront - < abra.txt | java HexDump 16
+41 42 52 02 44 01 45 01 04 04 02 26 
+
+% java MoveToFront - < abra.txt | java MoveToFront + 
+ABRACADABRA!
+
+==> passed
+
+Test 1: encode()
+  * amendments.txt
+  * stars.txt
+  * zebra.txt
+  * alphanum.txt
+  * a.txt
+==> passed
+
+Test 2: decode()
+  * amendments.txt
+  * stars.txt
+  * zebra.txt
+  * alphanum.txt
+  * a.txt
+==> passed
+
+Test 3: check that decode(encode()) = original
+  * amendments.txt
+  * stars.txt
+  * zebra.txt
+  * alphanum.txt
+  * a.txt
+==> passed
+
+Test 4: encode() on binary inputs
+  * us.gif
+  * CS_bricks.jpg
+  * rand10K.bin
+==> passed
+
+Test 5: decode() on binary inputs
+  * us.gif
+  * CS_bricks.jpg
+  * rand10K.bin
+==> passed
+
+Test 6: check that decode(encode()) = original on binary inputs
+  * us.gif
+  * CS_bricks.jpg
+  * rand10K.bin
+==> passed
+
+Test 7: calling close() or flush() in encode()
+  * amendments.txt
+==> passed
+
+Test 8: calling close() or flush() in decode()
+  * amendments.txt
+==> passed
+
+Test 9: encode() on large inputs
+  * rand100K.bin
+  * world192.txt
+==> passed
+
+Test 10: decode() on large inputs
+  * rand100K.bin
+  * world192.txt
+==> passed
+
+Test 11: check that decode(encode()) = original on large inputs
+  * rand100K.bin
+  * world192.txt
+==> passed
+
+
+Total: 12/12 tests passed!
+
+================================================================
+
+******************************************************************************
+*  memory usage
+******************************************************************************
+
+Computing memory of CircularSuffixArray
+*-----------------------------------------------------------
+Running 6 total tests.
+
+Memory usage of a CircularSuffixArray creating using a String of length s.
+Maximum allowed memory is 2x the reference.
+
+            s.length()   student (bytes)    reference (bytes)
+--------------------------------------------------------------
+=> passed       10           96                192
+=> passed       20          136                248
+=> passed       50          256                432
+=> passed      100          456                728
+=> passed      200          856               1328
+=> passed      500         2056               3128
+==> 6/6 tests passed
+
+Total: 6/6 tests passed!
+
+Estimated student memory (bytes) = 4.00 N + 56.00  (R^2 = 1.000)
+Estimated reference memory (bytes) = 5.98 N + 130.95  (R^2 = 1.000)
+================================================================
+
+
+
+******************************************************************************
+*  timing
+******************************************************************************
+
+Timing CircularSuffixArray
+*-----------------------------------------------------------
+Running 1 total tests.
+
+Max allowed time per row of table is 3s. index() times should be negligible (0.00s).
+
+       N     constructor  index()
+----------------------------------------------------------------
+     2048       0.01       0.01
+     4096       0.01       0.00
+    16384       0.05       0.00
+    23170       0.04       0.00
+    32768       0.06       0.00
+    46340       0.09       0.00
+    65536       0.13       0.00
+   131072       0.09       0.00
+   262144       0.11       0.00
+   524288       0.22       0.00
+==> passed
+
+Estimated runtime = 4.27e-04 * N^0.47  (R^2 = 0.85)
+
+Total: 1/1 tests passed!
+
+================================================================
+
+
+
+******************************************************************************
+*  timing
+******************************************************************************
+
+Timing BurrowsWheeler
+*-----------------------------------------------------------
+Running 2 total tests.
+
+The approximate order-of-growth for encoding is N ^ (lg ratio)
+
+        N  seconds  lg ratio
+--------------------------------
+   256000     0.14       1.1
+   512000     0.29       1.1
+  1024000     0.66       1.2
+==> passed
+
+The approximate order-of-growth for decoding is N ^ (lg ratio)
+
+        N  seconds  lg ratio
+--------------------------------
+  1024000     0.19       1.3
+==> passed
+
+
+Total: 2/2 tests passed!
+================================================================
+
+
+
+Timing MoveToFront
+*-----------------------------------------------------------
+Running 2 total tests.
+
+The approximate order-of-growth for encoding is N ^ (lg ratio)
+
+        N  seconds  lg ratio
+--------------------------------
+  2048000     0.18       1.0
+  4096000     0.37       1.0
+  8192000     0.77       1.0
+==> passed
+
+The approximate order-of-growth for decoding is N ^ (lg ratio)
+
+        N  seconds  lg ratio
+--------------------------------
+  1024000     0.10       1.1
+  2048000     0.20       0.9
+  4096000     0.39       1.0
+  8192000     0.82       1.1
+==> passed
+
+
+Total: 2/2 tests passed!
+================================================================
+
+
+
+
+*********************************************************
+compressing:
+*********************************************************
+Computing compression of BurrowsWheeler and MoveToFront 
+CPU limit = 60 seconds
+
+cat     = size (in bytes) of input file
+HUFE    = size (in bytes) of Huffman encoding
+burrows = size (in bytes) of BWT, MTF, and Huffman encoding (with a * if wrong size)
+gzip    = size (in bytes) of gzip encoding
+
+Data File                       cat    ./HUFE ./burrows ./gzip226
+-----------------------------------------------------------------
+
+abra.txt                         12        15        19        39
+nomatch.txt                      73       153       148       105
+world-quarter.txt            622786    393153    166587    187791
+world192.txt                2473400   1558717    604601    724606
+=================================================================
