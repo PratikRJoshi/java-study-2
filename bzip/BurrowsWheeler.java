@@ -1,3 +1,21 @@
+/*******************************************************************************
+ * Burrows Wheeler Transformation for preprocessing data to be compressed.
+ * <p>
+ * By preprocessing data to be compressed with the Burrows Wheeler
+ * Transformation, we move commonly used characters close together, making
+ * Huffman coding more effective.
+ * <p>
+ * The interface to this class isn't useful programmatically because of the API
+ * requirements of the assignment. However, the command-line usage is
+ * straightforward.
+ * <p>
+ * Usage: <code>java BurrowsWheeler { + | - } < <em>binstdin</em> > <em>binstdout
+ * </em></code>
+ * <p>
+ * <code>-</code> encodes and <code>+</code> decodes.
+ *
+ * @author William Schwartz <wkschwartz@gmail.com>
+ ******************************************************************************/
 public class BurrowsWheeler {
 	private static final int R = 256; // Radix of a byte.
 
