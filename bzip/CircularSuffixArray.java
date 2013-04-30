@@ -114,7 +114,7 @@ public class CircularSuffixArray {
 	 */
 	public static void main(String[] args) {
 		int SCREEN_WIDTH = 80;
-		String s = BinaryStdIn.readString();
+		String s = StdIn.readString();
 		int n = s.length();
 		int digits = (int) Math.log10(n) + 1;
 		String fmt = "%" + (digits == 0 ? 1 : digits) + "d ";
